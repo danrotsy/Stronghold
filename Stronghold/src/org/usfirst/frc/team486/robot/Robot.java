@@ -2,10 +2,11 @@
 package org.usfirst.frc.team486.robot;
 
 import org.usfirst.frc.team486.robot.commands.AutoCommand;
+import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
-import org.usfirst.frc.team486.robot.subsystems.SpinSubsystem;
+import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,7 +27,8 @@ public class Robot extends IterativeRobot {
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static final ExtendSubsystem extend = new ExtendSubsystem();
 	public static final LiftSubsystem lift = new LiftSubsystem();
-	public static final SpinSubsystem spin = new SpinSubsystem();
+	public static final BrushSubsystem brush = new BrushSubsystem();
+	public static final ShootSubsystem shoot = new ShootSubsystem();
 	public static OI oi;
 
     Command autonomousCommand;

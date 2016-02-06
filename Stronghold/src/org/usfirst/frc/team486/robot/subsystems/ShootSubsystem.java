@@ -1,28 +1,32 @@
 package org.usfirst.frc.team486.robot.subsystems;
 
 import org.usfirst.frc.team486.robot.RobotMap;
-import org.usfirst.frc.team486.robot.commands.TeleopCommand;
+import org.usfirst.frc.team486.robot.commands.ShootCommand;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class LiftSubsystem extends Subsystem {
+public class ShootSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Solenoid liftSolenoid = new Solenoid(RobotMap.liftSolenoid);
+	Talon shooter = new Talon(RobotMap.shootController);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new TeleopCommand());
+    	setDefaultCommand(new ShootCommand());
     }
     
-    public void toggle() {
-    	liftSolenoid.set(!liftSolenoid.get());
+    public void toggle(){
+    	if (shooter.get() == 0){
+    		shooter.set(1.00);
+    	} else {
+    		shooter.set(0);
+    	}
     }
 }
 

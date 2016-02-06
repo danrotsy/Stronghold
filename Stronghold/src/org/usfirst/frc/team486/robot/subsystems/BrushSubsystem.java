@@ -1,7 +1,7 @@
 package org.usfirst.frc.team486.robot.subsystems;
 
 import org.usfirst.frc.team486.robot.RobotMap;
-import org.usfirst.frc.team486.robot.commands.TeleopCommand;
+import org.usfirst.frc.team486.robot.commands.BrushCommand;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,27 +9,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class SpinSubsystem extends Subsystem {
+public class BrushSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Talon shooter = new Talon(RobotMap.shootController);
-	Talon spin = new Talon(RobotMap.spinController);
-	double shootmax = 1.00;
-	double spinmax = 1.00;
+	Talon brusher = new Talon(RobotMap.brushController);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new TeleopCommand());
+    	setDefaultCommand(new BrushCommand());
     }
     
-    public void shoot(double k){
-    	shooter.set(k*shootmax);
+    public void toggle(){
+    	if (brusher.get() == 0){
+    		brusher.set(1.00);
+    	} else {
+    		brusher.set(0);
+    	}
     }
     
-    public void spin(double k){
-    	spin.set(k*spinmax);
-    }
 }
 
