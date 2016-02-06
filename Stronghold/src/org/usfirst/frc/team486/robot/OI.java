@@ -1,7 +1,5 @@
 package org.usfirst.frc.team486.robot;
 
-import org.usfirst.frc.team486.robot.commands.SpinCommand;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -44,6 +42,7 @@ public class OI {
 	public JoystickButton extendButton = new JoystickButton(opstick, RobotMap.extendButton);
 	public JoystickButton liftButton = new JoystickButton(opstick, RobotMap.liftButton);
 	public JoystickButton spinButton = new JoystickButton(opstick, RobotMap.spinButton);
+	public JoystickButton shootButton = new JoystickButton(opstick, RobotMap.shootController);
 	public DigitalInput compressorSwitch = new DigitalInput(RobotMap.compressorSwitch);
 	
 	public OI() {

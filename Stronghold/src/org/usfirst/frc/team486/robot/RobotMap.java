@@ -18,6 +18,7 @@ public class RobotMap {
     public static int leftController = 1;
     public static int rightController = 0;
     public static int spinController = 2;
+    public static int shootController = 3;
     
     //Pneumatics
     public static int compressorPin = 0;
@@ -28,9 +29,10 @@ public class RobotMap {
     public static int compressorSwitch = 0;
     
     //OI
-    public static int extendButton = 2;
-    public static int liftButton = 5;
-    public static int spinButton = 1;
+    public static int extendButton = 5;
+    public static int liftButton = 3;
+    public static int spinButton = 2;
+    public static int shootButton = 1;
     
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
