@@ -21,12 +21,12 @@ public class ShootSubsystem extends Subsystem {
     	setDefaultCommand(new ShootCommand());
     }
     
-    public void toggle(){
-    	if (shooter.get() == 0){
-    		shooter.set(1.00);
-    	} else {
-    		shooter.set(0);
-    	}
+    public void spin(){
+    	shooter.set(1.00);
+    }
+    
+    public void stop(){
+    	shooter.set(0);
     }
 }
 

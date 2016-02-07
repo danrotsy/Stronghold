@@ -21,12 +21,12 @@ public class BrushSubsystem extends Subsystem {
     	setDefaultCommand(new BrushCommand());
     }
     
-    public void toggle(){
-    	if (brusher.get() == 0){
-    		brusher.set(1.00);
-    	} else {
-    		brusher.set(0);
-    	}
+    public void spin(){
+    	brusher.set(1.00);
+    }
+    
+    public void stop(){
+    	brusher.set(0);
     }
     
 }
