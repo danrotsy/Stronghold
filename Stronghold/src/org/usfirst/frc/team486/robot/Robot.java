@@ -2,12 +2,16 @@
 package org.usfirst.frc.team486.robot;
 
 import org.usfirst.frc.team486.robot.commands.AutoCommand;
+import org.usfirst.frc.team486.robot.commands.PullCommand;
+import org.usfirst.frc.team486.robot.commands.ReachCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
+import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
+import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,6 +34,9 @@ public class Robot extends IterativeRobot {
 	public static final BrushSubsystem brush = new BrushSubsystem();
 	public static final ShootSubsystem shoot = new ShootSubsystem();
 	public static OI oi;
+	
+	private final ExtendTrigger extendTrigger = new ExtendTrigger();
+	private final RetractTrigger retractTrigger = new RetractTrigger();
 
     Command autonomousCommand;
 
@@ -41,6 +48,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutoCommand();
+        
+        extendTrigger.whenActive(new ReachCommand());
+        retractTrigger.whenActive(new PullCommand());
     }
 	
 	public void disabledPeriodic() {

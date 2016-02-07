@@ -1,9 +1,5 @@
 package org.usfirst.frc.team486.robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -29,10 +25,7 @@ public class RobotMap {
     public static int compressorSwitch = 0;
     
     //OI
-    public static int extendButton = 5;
-    public static int liftButton = 3;
-    public static int brushButton = 4;
-    public static int shootButton = 2;
+    public static int shootButton = 1;
     
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:

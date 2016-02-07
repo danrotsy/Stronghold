@@ -1,13 +1,9 @@
 package org.usfirst.frc.team486.robot;
 
-import org.usfirst.frc.team486.robot.commands.BrushCommand;
-import org.usfirst.frc.team486.robot.commands.ExtendCommand;
-import org.usfirst.frc.team486.robot.commands.LiftCommand;
 import org.usfirst.frc.team486.robot.commands.ShootCommand;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -44,19 +40,13 @@ public class OI {
 	public Joystick leftstick = new Joystick(0);
 	public Joystick rightstick = new Joystick(1);
 	public Joystick opstick = new Joystick(2);
-	public JoystickButton extendButton = new JoystickButton(opstick, RobotMap.extendButton);
-	public JoystickButton liftButton = new JoystickButton(opstick, RobotMap.liftButton);
-	public JoystickButton brushButton = new JoystickButton(opstick, RobotMap.brushButton);
-	public JoystickButton shootButton = new JoystickButton(opstick, RobotMap.shootController);
+	public JoystickButton shootButton = new JoystickButton(opstick, RobotMap.shootButton);
 	public DigitalInput compressorSwitch = new DigitalInput(RobotMap.compressorSwitch);
 	
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
-		brushButton.whileHeld(new BrushCommand());
-		shootButton.whileHeld(new ShootCommand());
-		liftButton.whenPressed(new LiftCommand());
-		extendButton.whenPressed(new ExtendCommand());
-		
+		shootButton.whenPressed(new ShootCommand(true));
+		shootButton.whenReleased(new ShootCommand(false));
 	}
 }
 
