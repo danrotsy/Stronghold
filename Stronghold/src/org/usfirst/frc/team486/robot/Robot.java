@@ -11,6 +11,7 @@ import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
 import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
+import org.usfirst.frc.team486.robot.triggers.NullTrigger;
 import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -37,6 +38,7 @@ public class Robot extends IterativeRobot {
 	
 	private final ExtendTrigger extendTrigger = new ExtendTrigger();
 	private final RetractTrigger retractTrigger = new RetractTrigger();
+	private final NullTrigger nullTrigger = new NullTrigger();
 
     Command autonomousCommand;
 
@@ -49,11 +51,9 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutoCommand();
         
-        extendTrigger.whileActive(new ExtendCommand(true));
-        retractTrigger.whileActive(new ExtendCommand(false));
-        retractTrigger.whileActive(new BrushCommand(0.5));
-        retractTrigger.whenInactive(new BrushCommand(0));
-        //extendTrigger.whenInactive(new BrushCommand(false));
+        retractTrigger.whileActive(new ExtendCommand(1));
+        extendTrigger.whileActive(new ExtendCommand(-1));
+        nullTrigger.whileActive(new ExtendCommand(0));
     }
 	
 	public void disabledPeriodic() {

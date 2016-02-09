@@ -1,6 +1,7 @@
 package org.usfirst.frc.team486.robot.commands;
 
 import org.usfirst.frc.team486.robot.Robot;
+import org.usfirst.frc.team486.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -9,9 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ExtendCommand extends Command {
 	
-	boolean state;
+	int state;
 	
-    public ExtendCommand(boolean state) {
+    public ExtendCommand(int state) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.extend);
@@ -21,7 +22,15 @@ public class ExtendCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.extend.actuate(state);
+    	if (state == 1){
+    		Robot.extend.actuate(true);
+    		Robot.brush.spin(RobotMap.BRUSH_SPEED);
+    	} else if (state == -1) {
+    		Robot.extend.actuate(false);
+    		Robot.brush.spin(RobotMap.BRUSH_SPEED);
+    	} else {
+    		Robot.brush.spin(0);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
