@@ -2,8 +2,8 @@
 package org.usfirst.frc.team486.robot;
 
 import org.usfirst.frc.team486.robot.commands.AutoCommand;
-import org.usfirst.frc.team486.robot.commands.PullCommand;
-import org.usfirst.frc.team486.robot.commands.ReachCommand;
+import org.usfirst.frc.team486.robot.commands.BrushCommand;
+import org.usfirst.frc.team486.robot.commands.ExtendCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
@@ -49,8 +49,11 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutoCommand();
         
-        extendTrigger.whenActive(new ReachCommand());
-        retractTrigger.whenActive(new PullCommand());
+        extendTrigger.whileActive(new ExtendCommand(true));
+        retractTrigger.whileActive(new ExtendCommand(false));
+        retractTrigger.whileActive(new BrushCommand(0.5));
+        retractTrigger.whenInactive(new BrushCommand(0));
+        //extendTrigger.whenInactive(new BrushCommand(false));
     }
 	
 	public void disabledPeriodic() {

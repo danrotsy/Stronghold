@@ -15,6 +15,7 @@ public class LiftCommand extends Command {
         // eg. requires(chassis);
     	this.state = state;
     	requires(Robot.lift);
+    	requires(Robot.brush);
     }
 
     // Called just before this Command runs the first time

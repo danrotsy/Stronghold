@@ -26,6 +26,7 @@ public class RobotMap {
     
     //OI
     public static int shootButton = 1;
+    public static int liftButton = 2;  
     
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:

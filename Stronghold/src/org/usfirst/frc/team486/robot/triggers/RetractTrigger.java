@@ -10,6 +10,6 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 public class RetractTrigger extends Trigger {
     
     public boolean get() {
-    	return (Robot.oi.opstick.getY() < 0.6);
+    	return (Robot.oi.opstick.getY() > 0.6);
     }
 }

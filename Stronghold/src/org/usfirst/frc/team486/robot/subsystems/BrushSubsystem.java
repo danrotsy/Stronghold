@@ -19,13 +19,8 @@ public class BrushSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void spin(){
-    	brusher.set(1.00);
+    public void spin(double val){
+    	brusher.set(val);
     }
-    
-    public void stop(){
-    	brusher.set(0);
-    }
-    
 }
 

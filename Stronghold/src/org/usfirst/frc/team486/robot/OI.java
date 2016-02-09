@@ -1,5 +1,7 @@
 package org.usfirst.frc.team486.robot;
 
+import org.usfirst.frc.team486.robot.commands.BrushCommand;
+import org.usfirst.frc.team486.robot.commands.LiftCommand;
 import org.usfirst.frc.team486.robot.commands.ShootCommand;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -41,12 +43,15 @@ public class OI {
 	public Joystick rightstick = new Joystick(1);
 	public Joystick opstick = new Joystick(2);
 	public JoystickButton shootButton = new JoystickButton(opstick, RobotMap.shootButton);
+	public JoystickButton liftButton = new JoystickButton(opstick, RobotMap.liftButton);
 	public DigitalInput compressorSwitch = new DigitalInput(RobotMap.compressorSwitch);
-	
+			
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
 		shootButton.whenPressed(new ShootCommand(true));
 		shootButton.whenReleased(new ShootCommand(false));
+		liftButton.whenActive(new LiftCommand(true));
+		liftButton.whenInactive(new LiftCommand(false));
 	}
 }
 

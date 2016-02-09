@@ -26,5 +26,9 @@ public class ShootSubsystem extends Subsystem {
     public void stop(){
     	shooter.set(0);
     }
+    
+    public void analog(double val){
+    	shooter.set(val);
+    }
 }
 
