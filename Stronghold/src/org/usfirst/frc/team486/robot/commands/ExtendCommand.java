@@ -1,34 +1,45 @@
 package org.usfirst.frc.team486.robot.commands;
 
 import org.usfirst.frc.team486.robot.Robot;
+import org.usfirst.frc.team486.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class TeleopCommand extends Command {
+public class ExtendCommand extends Command {
 	
-    public TeleopCommand() {
+	int state;
+	
+    public ExtendCommand(int state) {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.drivechain);
-    	requires(Robot.pneumatics);
+        // eg. requires(chassis);
+    	requires(Robot.extend);
+    	requires(Robot.brush);
+    	this.state = state;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivechain.initdrive();
+    	if (state == 1){
+    		Robot.extend.actuate(true);
+    		Robot.brush.spin(RobotMap.BRUSH_SPEED);
+    	} else if (state == -1) {
+    		Robot.extend.actuate(false);
+    		Robot.brush.spin(RobotMap.BRUSH_SPEED);
+    	} else {
+    		Robot.brush.spin(0);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivechain.drive(Robot.oi.rightstick, Robot.oi.leftstick);
-    	Robot.pneumatics.setCompressor();    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -7,28 +7,29 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TeleopCommand extends Command {
-	
-    public TeleopCommand() {
+public class LiftCommand extends Command {
+
+	boolean state;
+    public LiftCommand(boolean state) {
         // Use requires() here to declare subsystem dependencies
-    	requires(Robot.drivechain);
-    	requires(Robot.pneumatics);
+        // eg. requires(chassis);
+    	this.state = state;
+    	requires(Robot.lift);
+    	requires(Robot.brush);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivechain.initdrive();
+    	Robot.lift.actuate(state);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivechain.drive(Robot.oi.rightstick, Robot.oi.leftstick);
-    	Robot.pneumatics.setCompressor();    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

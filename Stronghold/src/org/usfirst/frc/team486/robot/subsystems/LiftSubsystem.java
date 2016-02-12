@@ -1,7 +1,6 @@
 package org.usfirst.frc.team486.robot.subsystems;
 
 import org.usfirst.frc.team486.robot.RobotMap;
-import org.usfirst.frc.team486.robot.commands.TeleopCommand;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,11 +17,10 @@ public class LiftSubsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new TeleopCommand());
     }
     
-    public void set(boolean lift) {
-    	liftSolenoid.set(lift);
+    public void actuate(boolean state) {
+    	liftSolenoid.set(state);
     }
 }
 

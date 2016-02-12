@@ -2,11 +2,17 @@
 package org.usfirst.frc.team486.robot;
 
 import org.usfirst.frc.team486.robot.commands.AutoCommand;
+import org.usfirst.frc.team486.robot.commands.BrushCommand;
+import org.usfirst.frc.team486.robot.commands.ExtendCommand;
+import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
-import org.usfirst.frc.team486.robot.subsystems.SpinSubsystem;
+import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
+import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
+import org.usfirst.frc.team486.robot.triggers.NullTrigger;
+import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,8 +32,13 @@ public class Robot extends IterativeRobot {
 	public static final PneumaticSubsystem pneumatics = new PneumaticSubsystem();
 	public static final ExtendSubsystem extend = new ExtendSubsystem();
 	public static final LiftSubsystem lift = new LiftSubsystem();
-	public static final SpinSubsystem spin = new SpinSubsystem();
+	public static final BrushSubsystem brush = new BrushSubsystem();
+	public static final ShootSubsystem shoot = new ShootSubsystem();
 	public static OI oi;
+	
+	private final ExtendTrigger extendTrigger = new ExtendTrigger();
+	private final RetractTrigger retractTrigger = new RetractTrigger();
+	private final NullTrigger nullTrigger = new NullTrigger();
 
     Command autonomousCommand;
 
@@ -39,6 +50,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutoCommand();
+        
+        retractTrigger.whileActive(new ExtendCommand(1));
+        extendTrigger.whileActive(new ExtendCommand(-1));
+        nullTrigger.whileActive(new ExtendCommand(0));
     }
 	
 	public void disabledPeriodic() {
