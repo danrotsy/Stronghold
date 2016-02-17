@@ -22,7 +22,7 @@ public class TeleopCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivechain.drive(Robot.oi.rightstick, Robot.oi.leftstick);
+    	Robot.drivechain.drive(Robot.oi.leftstick, Robot.oi.rightstick);
     	Robot.pneumatics.setCompressor();    	
     }
 

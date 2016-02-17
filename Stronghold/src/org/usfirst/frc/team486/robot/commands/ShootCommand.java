@@ -9,21 +9,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShootCommand extends Command {
 
-	boolean state;
+	double power;
 
-    public ShootCommand(boolean state) {
+    public ShootCommand(double power) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.shoot);
     	requires(Robot.brush);
-    	this.state = state;
+    	this.power = power;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (state) {
+    	if (power != 0) {
     		Robot.shoot.spin();
-    		Robot.brush.spin(1.00);
+    		Robot.brush.spin(power);
     	} else {
     		Robot.shoot.stop();
     		Robot.brush.spin(0.00);

@@ -29,8 +29,8 @@ public class TankSubsystem extends Subsystem {
     }
     public void initdrive() {
     	//may need to change inversions
-    	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
-    	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
+    	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+    	drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
     }
 }
 

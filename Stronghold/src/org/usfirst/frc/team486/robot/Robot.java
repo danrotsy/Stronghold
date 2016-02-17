@@ -1,9 +1,11 @@
 
 package org.usfirst.frc.team486.robot;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team486.robot.commands.AutoCommand;
-import org.usfirst.frc.team486.robot.commands.BrushCommand;
 import org.usfirst.frc.team486.robot.commands.ExtendCommand;
+import org.usfirst.frc.team486.robot.commands.ShootCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
@@ -13,8 +15,11 @@ import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
 import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
 import org.usfirst.frc.team486.robot.triggers.NullTrigger;
 import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
+import org.usfirst.frc.team486.robot.triggers.SpitTrigger;
+import org.usfirst.frc.team486.robot.triggers.SuckTrigger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -39,8 +44,11 @@ public class Robot extends IterativeRobot {
 	private final ExtendTrigger extendTrigger = new ExtendTrigger();
 	private final RetractTrigger retractTrigger = new RetractTrigger();
 	private final NullTrigger nullTrigger = new NullTrigger();
+	private final SpitTrigger spitTrigger = new SpitTrigger();
+	private final SuckTrigger suckTrigger = new SuckTrigger();
 
     Command autonomousCommand;
+    CameraServer486 server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -54,6 +62,15 @@ public class Robot extends IterativeRobot {
         retractTrigger.whileActive(new ExtendCommand(1));
         extendTrigger.whileActive(new ExtendCommand(-1));
         nullTrigger.whileActive(new ExtendCommand(0));
+        spitTrigger.whileActive(new ShootCommand(RobotMap.SPIT_POWER));
+        suckTrigger.whileActive(new ShootCommand(-RobotMap.SUCK_POWER));
+        
+        server = CameraServer486.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam0");
+        server.captureSingleImage();
+        server.saveImage();
+        
     }
 	
 	public void disabledPeriodic() {
@@ -93,6 +110,13 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    }
+    
+    public void cameraPeriodic() {
+    	while (isOperatorControl() && isEnabled()) {
+            /** robot code here! **/
+            Timer.delay(0.005);		// wait for a motor update time
+    	}
     }
     
     /**

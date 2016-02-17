@@ -29,6 +29,8 @@ public class RobotMap {
     public static int liftButton = 2;  
     
     public static double BRUSH_SPEED = 0.6;
+    public static double SPIT_POWER = 0.6;
+    public static double SUCK_POWER = 0.6;
     
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:

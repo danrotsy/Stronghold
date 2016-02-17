@@ -48,8 +48,8 @@ public class OI {
 			
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
-		shootButton.whenPressed(new ShootCommand(true));
-		shootButton.whenReleased(new ShootCommand(false));
+		shootButton.whenPressed(new ShootCommand(1));
+		shootButton.whenReleased(new ShootCommand(0));
 		liftButton.whenActive(new LiftCommand(true));
 		liftButton.whenInactive(new LiftCommand(false));
 	}
