@@ -15,6 +15,8 @@ public class RobotMap {
     public static int rightController = 0;
     public static int brushController = 2;
     public static int shootController = 3;
+    public static int cameraController = 4;
+    public static int gateController = 5;
     
     //Pneumatics
     public static int compressorPin = 0;
@@ -26,10 +28,13 @@ public class RobotMap {
     
     //OI
     public static int shootButton = 1;
-    public static int liftButton = 2;  
+    public static int liftButton = 2; 
+    public static int suckButton = 3;
+    public static int cameraButton = 3;
+    public static int raiseGate = 3;
+    public static int lowerGate = 2;
     
     public static double BRUSH_SPEED = 0.6;
-    public static double SPIT_POWER = 0.6;
     public static double SUCK_POWER = 0.6;
     
     // If you are using multiple modules, make sure to define both the port

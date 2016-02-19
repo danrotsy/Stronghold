@@ -9,25 +9,22 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShootCommand extends Command {
 
-	double power;
+	double powerShoot;
+	double powerBrush;
 
-    public ShootCommand(double power) {
+    public ShootCommand(double powerShoot, double powerBrush) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.shoot);
     	requires(Robot.brush);
-    	this.power = power;
+    	this.powerShoot = powerShoot;
+    	this.powerBrush = powerBrush;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (power != 0) {
-    		Robot.shoot.spin();
-    		Robot.brush.spin(power);
-    	} else {
-    		Robot.shoot.stop();
-    		Robot.brush.spin(0.00);
-    	}
+    	Robot.shoot.spin(powerShoot);
+    	Robot.brush.spin(powerBrush);
     }
 
     // Called repeatedly when this Command is scheduled to run

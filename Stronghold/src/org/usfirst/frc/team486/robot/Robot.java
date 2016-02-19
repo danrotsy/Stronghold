@@ -1,13 +1,13 @@
 
 package org.usfirst.frc.team486.robot;
 
-import java.io.IOException;
-
-import org.usfirst.frc.team486.robot.commands.AutoCommand;
+import org.usfirst.frc.team486.robot.commands.AutoShootCommand;
 import org.usfirst.frc.team486.robot.commands.ExtendCommand;
 import org.usfirst.frc.team486.robot.commands.ShootCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
+import org.usfirst.frc.team486.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
+import org.usfirst.frc.team486.robot.subsystems.GateSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
@@ -15,8 +15,6 @@ import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
 import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
 import org.usfirst.frc.team486.robot.triggers.NullTrigger;
 import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
-import org.usfirst.frc.team486.robot.triggers.SpitTrigger;
-import org.usfirst.frc.team486.robot.triggers.SuckTrigger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -39,16 +37,17 @@ public class Robot extends IterativeRobot {
 	public static final LiftSubsystem lift = new LiftSubsystem();
 	public static final BrushSubsystem brush = new BrushSubsystem();
 	public static final ShootSubsystem shoot = new ShootSubsystem();
+	public static final CameraSubsystem camera = new CameraSubsystem();
+	public static final GateSubsystem gate = new GateSubsystem();
 	public static OI oi;
 	
 	private final ExtendTrigger extendTrigger = new ExtendTrigger();
 	private final RetractTrigger retractTrigger = new RetractTrigger();
 	private final NullTrigger nullTrigger = new NullTrigger();
-	private final SpitTrigger spitTrigger = new SpitTrigger();
-	private final SuckTrigger suckTrigger = new SuckTrigger();
 
-    Command autonomousCommand;
+    //Command autonomousCommand;
     CameraServer486 server;
+    int tick;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -57,13 +56,10 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutoCommand();
-        
-        retractTrigger.whileActive(new ExtendCommand(1));
-        extendTrigger.whileActive(new ExtendCommand(-1));
+		//autonomousCommand = new AutoShootCommand();
+        retractTrigger.whileActive(new ExtendCommand(-1));
+        extendTrigger.whileActive(new ExtendCommand(1));
         nullTrigger.whileActive(new ExtendCommand(0));
-        spitTrigger.whileActive(new ShootCommand(RobotMap.SPIT_POWER));
-        suckTrigger.whileActive(new ShootCommand(-RobotMap.SUCK_POWER));
         
         server = CameraServer486.getInstance();
         server.setQuality(50);
@@ -79,14 +75,26 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        //if (autonomousCommand != null) 
+    	//autonomousCommand.start();
+    	tick = 0;
+    	Robot.pneumatics.initDefaultCommand();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+        //Scheduler.getInstance().run();
+    	Robot.pneumatics.setCompressor();
+    	tick++;
+    	//if(autoLoopCounter < 150) {
+			//Robot.drivechain.driveDouble(1,1);	// drive forwards half speed
+		//} else {
+			//Robot.drivechain.driveDouble(0,0); 	// stop robot
+		//}
+    	autoShoot(tick, 200);
+    	drive(0,0.5,0.5,50,tick);
     }
 
     public void teleopInit() {
@@ -94,7 +102,8 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        //if (autonomousCommand != null) 
+    	//autonomousCommand.cancel();
     }
 
     /**
@@ -124,5 +133,41 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    private void autoShoot(int tick, int shotTick){
+    	//starts revving shooter 50 ticks before (approximately 1 second)
+    	//brings down the actuator at shot tick 
+    	//lifts actuator and slows shooter 25 ticks after shot tick (approximately 0.5 seconds)
+    	if (((shotTick - tick) < 50) && (tick < (shotTick + 25))) {
+    		Robot.shoot.spin(1);
+    		Robot.brush.spin(1);
+    	} else {
+    		Robot.shoot.spin(0);
+    		Robot.brush.spin(0);
+    	}
+    	if ((tick > shotTick) && (tick < shotTick + 25)) {
+    		Robot.lift.actuate(true);
+    	} else {
+    		Robot.lift.actuate(false);
+    	}
+    }
+    
+    private void driveForward(int startTick, double distance, int tick) { // in feet
+    	double speed = 5; //in feet/second
+    	
+    }
+    
+    private void rotate(int startTick, double angle, int tick) { //in degrees
+    	double angularspeed = 5; //in degrees per second
+    	
+    }
+    
+    private void drive(int startTick, double speedleft, double speedright, int duration, int tick) {
+    	if ((tick > startTick) && (tick < (startTick + duration))) {
+    		Robot.drivechain.driveDouble(speedleft, speedright);
+    	} else {
+    		Robot.drivechain.driveDouble(0, 0);
+    	}
     }
 }

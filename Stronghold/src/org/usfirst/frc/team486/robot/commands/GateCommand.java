@@ -1,19 +1,26 @@
 package org.usfirst.frc.team486.robot.commands;
 
+import org.usfirst.frc.team486.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoCommand extends Command {
+public class GateCommand extends Command {
 
-    public AutoCommand() {
+	private double power;
+	
+    public GateCommand(double powerIn) {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        // eg. requires(chassis);)
+    	requires(Robot.gate);
+    	power = powerIn;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.gate.setPower(power);
     }
 
     // Called repeatedly when this Command is scheduled to run

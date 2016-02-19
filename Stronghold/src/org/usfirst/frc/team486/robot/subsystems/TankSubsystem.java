@@ -27,6 +27,9 @@ public class TankSubsystem extends Subsystem {
     public void drive(Joystick leftStick, Joystick rightStick) {
     	drive.tankDrive(leftStick, rightStick);
     }
+    public void driveDouble(double left, double right) {
+    	drive.setLeftRightMotorOutputs(left, right);
+    }
     public void initdrive() {
     	//may need to change inversions
     	drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);

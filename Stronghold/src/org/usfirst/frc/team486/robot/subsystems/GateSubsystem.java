@@ -8,27 +8,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ShootSubsystem extends Subsystem {
+public class GateSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Talon shooter = new Talon(RobotMap.shootController);
+	Talon gate = new Talon(RobotMap.gateController);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void spin(double power){
-    	shooter.set(power);
-    }
-    
-    public void stop(){
-    	shooter.set(0);
-    }
-    
-    public void analog(double val){
-    	shooter.set(val);
+    public void setPower(double power){
+    	gate.set(power);
     }
 }
 

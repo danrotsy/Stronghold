@@ -3,6 +3,7 @@ package org.usfirst.frc.team486.robot.commands;
 import org.usfirst.frc.team486.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -13,17 +14,31 @@ public class TeleopCommand extends Command {
         // Use requires() here to declare subsystem dependencies
     	requires(Robot.drivechain);
     	requires(Robot.pneumatics);
+    	requires(Robot.camera);
+    	requires(Robot.gate);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivechain.initdrive();
+    	Robot.drivechain.initdrive(); //does this cause a problem after auto?
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.drivechain.drive(Robot.oi.leftstick, Robot.oi.rightstick);
-    	Robot.pneumatics.setCompressor();    	
+    	Robot.pneumatics.setCompressor();
+    	if (Robot.oi.raiseGateButton.get()) {
+    		Robot.gate.setPower(0.5);
+    	} else if (Robot.oi.lowerGateButton.get()) {
+    		Robot.gate.setPower(-0.5);
+    	} else {
+    		Robot.gate.setPower(0);	
+    	}
+    	if (Robot.oi.cameraButton.get()) {
+    		Robot.camera.setPower(1);
+    	} else {
+    		Robot.camera.setPower(0);	
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
