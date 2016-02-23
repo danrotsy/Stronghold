@@ -69,7 +69,6 @@ public class Robot extends IterativeRobot {
         server.startAutomaticCapture("cam0");
         server.captureSingleImage();
         server.saveImage();
-        
     }
 	
 	public void disabledPeriodic() {

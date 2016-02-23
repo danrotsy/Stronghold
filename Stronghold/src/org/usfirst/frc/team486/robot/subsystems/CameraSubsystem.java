@@ -26,14 +26,20 @@ public class CameraSubsystem extends Subsystem {
     
     public void raiseCamera(){
     	cameraServo.setAngle(110);
+    	//cameraServo.set(0.5);
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
     }
     
     public void defaultCamera() {
-    	cameraServo.setAngle(120);
+    	cameraServo.setAngle(130);
+    	//cameraServo.set(0.6);
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
     }
     
     public void lowerCamera() {
     	cameraServo.setAngle(170);
+    	//cameraServo.set(0.3);
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
     }
 }
 

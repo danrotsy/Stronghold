@@ -1,10 +1,7 @@
 package org.usfirst.frc.team486.robot;
 
-import org.usfirst.frc.team486.robot.commands.BrushCommand;
+import org.usfirst.frc.team486.robot.commands.ExtendCommand;
 import org.usfirst.frc.team486.robot.commands.GateCommand;
-import org.usfirst.frc.team486.robot.commands.LiftCommand;
-import org.usfirst.frc.team486.robot.commands.ShootCommand;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -53,12 +50,10 @@ public class OI {
 			
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
-		shootButton.whenPressed(new ShootCommand(0.95, 1));
-		shootButton.whenReleased(new ShootCommand(0, 0));
-		liftButton.whenActive(new LiftCommand(true));
-		liftButton.whenInactive(new LiftCommand(false));
 		raiseGateButton.whenActive(new GateCommand(1));
 		lowerGateButton.whenActive(new GateCommand(-1));
+		//extend.whenActive(new ExtendCommand(1));
+		//extend.whenInactive(new ExtendCommand(0));
 	}
 }
 

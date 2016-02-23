@@ -25,6 +25,8 @@ public class RobotMap {
     
     //Inputs
     public static int compressorSwitch = 0;
+    public static int encoderPin1 = 1;
+    public static int encoderPin2 = 2;
     
     //OI
     public static int shootButton = 1;
