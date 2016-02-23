@@ -34,10 +34,12 @@ public class TeleopCommand extends Command {
     	} else {
     		Robot.gate.setPower(0);	
     	}
-    	if (Robot.oi.cameraButton.get()) {
-    		Robot.camera.setPower(1);
+    	if (Robot.oi.raiseCameraButton.get()){
+    		Robot.camera.raiseCamera();
+    	} else if (Robot.oi.lowerCameraButton.get()) {
+    		Robot.camera.lowerCamera();
     	} else {
-    		Robot.camera.setPower(0);	
+    		Robot.camera.defaultCamera();
     	}
     }
 

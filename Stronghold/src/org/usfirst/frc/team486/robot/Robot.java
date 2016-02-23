@@ -1,8 +1,8 @@
 
 package org.usfirst.frc.team486.robot;
 
-import org.usfirst.frc.team486.robot.commands.AutoShootCommand;
 import org.usfirst.frc.team486.robot.commands.ExtendCommand;
+import org.usfirst.frc.team486.robot.commands.GateCommand;
 import org.usfirst.frc.team486.robot.commands.ShootCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.CameraSubsystem;
@@ -13,6 +13,7 @@ import org.usfirst.frc.team486.robot.subsystems.PneumaticSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ShootSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.TankSubsystem;
 import org.usfirst.frc.team486.robot.triggers.ExtendTrigger;
+import org.usfirst.frc.team486.robot.triggers.NullGateTrigger;
 import org.usfirst.frc.team486.robot.triggers.NullTrigger;
 import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
 
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 	private final ExtendTrigger extendTrigger = new ExtendTrigger();
 	private final RetractTrigger retractTrigger = new RetractTrigger();
 	private final NullTrigger nullTrigger = new NullTrigger();
+	private final NullGateTrigger nullGateTrigger = new NullGateTrigger();
 
     //Command autonomousCommand;
     CameraServer486 server;
@@ -60,6 +62,7 @@ public class Robot extends IterativeRobot {
         retractTrigger.whileActive(new ExtendCommand(-1));
         extendTrigger.whileActive(new ExtendCommand(1));
         nullTrigger.whileActive(new ExtendCommand(0));
+        nullGateTrigger.whileActive(new GateCommand(0));
         
         server = CameraServer486.getInstance();
         server.setQuality(50);

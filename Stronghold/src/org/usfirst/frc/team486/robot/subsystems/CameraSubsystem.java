@@ -16,10 +16,7 @@ public class CameraSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
-	Talon cameraServo = new Talon(RobotMap.cameraController);
-	private double angle1;
-	private double angle2;
-	private boolean raised = false;
+	Servo cameraServo = new Servo(RobotMap.cameraController);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -27,9 +24,16 @@ public class CameraSubsystem extends Subsystem {
     	setDefaultCommand(new TeleopCommand());
     }
     
-    public void setPower(double power) {
-    	cameraServo.set(power);
+    public void raiseCamera(){
+    	cameraServo.setAngle(110);
     }
     
+    public void defaultCamera() {
+    	cameraServo.setAngle(120);
+    }
+    
+    public void lowerCamera() {
+    	cameraServo.setAngle(170);
+    }
 }
 

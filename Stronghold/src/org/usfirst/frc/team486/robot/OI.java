@@ -45,17 +45,20 @@ public class OI {
 	public Joystick opstick = new Joystick(2);
 	public JoystickButton shootButton = new JoystickButton(opstick, RobotMap.shootButton);
 	public JoystickButton liftButton = new JoystickButton(opstick, RobotMap.liftButton);
-	public JoystickButton cameraButton = new JoystickButton(leftstick, RobotMap.cameraButton);
+	public JoystickButton raiseCameraButton = new JoystickButton(leftstick, 2);
+	public JoystickButton lowerCameraButton = new JoystickButton(leftstick, 3);
 	public JoystickButton raiseGateButton = new JoystickButton(rightstick, RobotMap.raiseGate);
 	public JoystickButton lowerGateButton = new JoystickButton(rightstick, RobotMap.lowerGate);
 	public DigitalInput compressorSwitch = new DigitalInput(RobotMap.compressorSwitch);
 			
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
-		shootButton.whenPressed(new ShootCommand(1, 1));
+		shootButton.whenPressed(new ShootCommand(0.95, 1));
 		shootButton.whenReleased(new ShootCommand(0, 0));
 		liftButton.whenActive(new LiftCommand(true));
 		liftButton.whenInactive(new LiftCommand(false));
+		raiseGateButton.whenActive(new GateCommand(1));
+		lowerGateButton.whenActive(new GateCommand(-1));
 	}
 }
 
