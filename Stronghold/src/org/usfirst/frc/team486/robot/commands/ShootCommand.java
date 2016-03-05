@@ -11,7 +11,7 @@ public class ShootCommand extends Command {
 
 	boolean triggered = false;
 	double shootpower = 0;
-	double target = 85000;
+	double target = 86000;
 	double adjustment = (target/90000)*0.005;
 	boolean ready = false;
 
@@ -28,6 +28,7 @@ public class ShootCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	double offset = Math.abs((target-Robot.shoot.getRate()))/target;
     	if (Robot.oi.shootButton.get()){
     		Robot.shoot.spin(shootpower);
     		Robot.brush.spin(shootpower);
@@ -41,16 +42,16 @@ public class ShootCommand extends Command {
     	}
     	if (Robot.shoot.ready(target)) {
     		if (shootpower > 0) {
-    			shootpower -= adjustment;
+    			shootpower -= adjustment*offset;
     		}
     	} else {
     		if (shootpower < 1) {
-    			shootpower += adjustment;
+    			shootpower += adjustment*offset;
     		}
     	}
     	if (Robot.oi.liftButton.get()) {
     		if (triggered) {
-    			if (Robot.shoot.ready(target)) { //ready was in here 
+    			if (Math.abs((target-Robot.shoot.getRate()))<1000) { //ready was in here 
     				Robot.lift.actuate(true);
     			}
     		} else {

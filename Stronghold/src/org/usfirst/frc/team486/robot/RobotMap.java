@@ -22,6 +22,7 @@ public class RobotMap {
     public static int compressorPin = 0;
     public static int extendSolenoid = 0;
     public static int liftSolenoid = 1;
+    public static int clawSolenoid = 2;
     
     //Inputs
     public static int compressorSwitch = 0;
@@ -33,6 +34,7 @@ public class RobotMap {
     public static int liftButton = 2; 
     public static int suckButton = 3;
     public static int cameraButton = 3;
+    public static int clawButton = 1;
     public static int raiseGate = 3;
     public static int lowerGate = 2;
     

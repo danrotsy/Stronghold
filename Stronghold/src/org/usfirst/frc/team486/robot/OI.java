@@ -1,5 +1,7 @@
 package org.usfirst.frc.team486.robot;
 
+//import org.usfirst.frc.team486.robot.commands.CameraCommand;
+import org.usfirst.frc.team486.robot.commands.ClawCommand;
 import org.usfirst.frc.team486.robot.commands.ExtendCommand;
 import org.usfirst.frc.team486.robot.commands.GateCommand;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -46,12 +48,17 @@ public class OI {
 	public JoystickButton lowerCameraButton = new JoystickButton(leftstick, 3);
 	public JoystickButton raiseGateButton = new JoystickButton(rightstick, RobotMap.raiseGate);
 	public JoystickButton lowerGateButton = new JoystickButton(rightstick, RobotMap.lowerGate);
+	public JoystickButton clawButton = new JoystickButton(rightstick, RobotMap.clawButton);
 	public DigitalInput compressorSwitch = new DigitalInput(RobotMap.compressorSwitch);
 			
 	public OI() {
 		//spinButton.whenPressed(new SpinCommand());
 		raiseGateButton.whenActive(new GateCommand(1));
 		lowerGateButton.whenActive(new GateCommand(-1));
+		clawButton.whenActive(new ClawCommand(true));
+		clawButton.whenInactive(new ClawCommand(false));
+		//raiseCameraButton.whenActive(new CameraCommand(true));
+		//lowerCameraButton.whenActive(new CameraCommand(false));
 		//extend.whenActive(new ExtendCommand(1));
 		//extend.whenInactive(new ExtendCommand(0));
 	}

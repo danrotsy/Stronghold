@@ -6,6 +6,7 @@ import org.usfirst.frc.team486.robot.commands.GateCommand;
 import org.usfirst.frc.team486.robot.commands.ShootCommand;
 import org.usfirst.frc.team486.robot.subsystems.BrushSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.CameraSubsystem;
+import org.usfirst.frc.team486.robot.subsystems.ClawSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.ExtendSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.GateSubsystem;
 import org.usfirst.frc.team486.robot.subsystems.LiftSubsystem;
@@ -17,11 +18,13 @@ import org.usfirst.frc.team486.robot.triggers.NullGateTrigger;
 import org.usfirst.frc.team486.robot.triggers.NullTrigger;
 import org.usfirst.frc.team486.robot.triggers.RetractTrigger;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,6 +43,7 @@ public class Robot extends IterativeRobot {
 	public static final ShootSubsystem shoot = new ShootSubsystem();
 	public static final CameraSubsystem camera = new CameraSubsystem();
 	public static final GateSubsystem gate = new GateSubsystem();
+	public static final ClawSubsystem claw = new ClawSubsystem();
 	public static OI oi;
 	
 	private final ExtendTrigger extendTrigger = new ExtendTrigger();
@@ -48,8 +52,11 @@ public class Robot extends IterativeRobot {
 	private final NullGateTrigger nullGateTrigger = new NullGateTrigger();
 
     //Command autonomousCommand;
-    CameraServer486 server;
+    CameraServer server;
     int tick;
+    boolean shootauto = false;
+    boolean driveauto = false;
+    boolean lowauto = false;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -64,11 +71,10 @@ public class Robot extends IterativeRobot {
         nullTrigger.whileActive(new ExtendCommand(0));
         nullGateTrigger.whileActive(new GateCommand(0));
         
-        server = CameraServer486.getInstance();
+        server = CameraServer.getInstance();
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
-        server.captureSingleImage();
-        server.saveImage();
+        //SmartDashboard.putString("Autonomous", "none");
     }
 	
 	public void disabledPeriodic() {
@@ -81,6 +87,7 @@ public class Robot extends IterativeRobot {
     	//autonomousCommand.start();
     	tick = 0;
     	Robot.pneumatics.initDefaultCommand();
+    	decideMode();
     }
 
     /**
@@ -95,8 +102,13 @@ public class Robot extends IterativeRobot {
 		//} else {
 			//Robot.drivechain.driveDouble(0,0); 	// stop robot
 		//}
-    	autoShoot(tick, 200);
-    	drive(0,0.5,0.5,50,tick);
+    	if(shootauto) {
+    		autoShoot(tick,200);
+    	} else if (driveauto) {
+    		drive(0,1,1,100,tick);
+    	} else if (lowauto) {
+    		drive(0,-0.5,-0.5, 200, tick);
+    	}
     }
 
     public void teleopInit() {
@@ -170,6 +182,29 @@ public class Robot extends IterativeRobot {
     		Robot.drivechain.driveDouble(speedleft, speedright);
     	} else {
     		Robot.drivechain.driveDouble(0, 0);
+    	}
+    }
+    
+    private void decideMode() {
+    	//String mode = SmartDashboard.getString("Autonomous");
+    	String mode = "low";
+    	if (mode.equals("shoot")) {
+    		shootauto = true;
+    		driveauto = false;
+    		lowauto = false;
+    	} else if (mode.equals("drive")) {
+    		shootauto = false;
+    		driveauto = true;
+    		lowauto = false;
+    	} else if (mode.equals("low")) {
+    		shootauto = false;
+    		driveauto = false;
+    		lowauto = true;
+    	} else {
+    		SmartDashboard.putString("Autonomous", "none");
+    		shootauto = false;
+    		driveauto = false;
+    		lowauto = false;
     	}
     }
 }

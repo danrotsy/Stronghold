@@ -21,25 +21,24 @@ public class CameraSubsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new TeleopCommand());
     }
     
     public void raiseCamera(){
-    	cameraServo.setAngle(110);
+    	//cameraServo.setAngle(110);
     	//cameraServo.set(0.5);
-    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.get());
     }
     
     public void defaultCamera() {
     	cameraServo.setAngle(130);
     	//cameraServo.set(0.6);
-    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.get());
     }
     
     public void lowerCamera() {
     	cameraServo.setAngle(170);
     	//cameraServo.set(0.3);
-    	//SmartDashboard.putNumber("Camera Angle", cameraServo.getAngle());
+    	//SmartDashboard.putNumber("Camera Angle", cameraServo.get());
     }
 }
 
